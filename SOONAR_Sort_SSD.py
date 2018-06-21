@@ -8,7 +8,7 @@ from astropy.io import fits
 def write_to_fits (target_loc, sorted_array):
     #Create HDUL(ist)
     new_hdul = fits.HDUList()
-    #Add (sorted) images to the .fit file
+    #Add (sorted) images to the .FIT file
     for i in range(0,len(sorted_array)):
         new_hdul.append(fits.ImageHDU(sorted_array[i][2], sorted_array[i][1]))
     new_hdul.writeto(target_loc, overwrite = True, output_verify = "fix")
@@ -19,7 +19,7 @@ def convert_SOONAR_dir():
         for file in files:
             target_folder = subdir + os.sep
             target_file = subdir + os.sep + file
-            #If it is a .npy file
+            #If it is a .pkl file
             if (target_file.endswith(".pkl")):
                 print(target_file)
                 #Extract data (as a list)
@@ -31,9 +31,9 @@ def convert_SOONAR_dir():
                 id_array = open_array[2]
                 #Sort data
                 sorted_array = sorted (zip (dt_array, hdr_array, id_array), key=lambda x: x[0])
-                #Write sorted data to a .fit file
+                #Write sorted data to a .FIT file
                 write_to_fits(target_folder+'/'+sorted_array[0][0].strftime('%H%M')+'-'+sorted_array[-1][0].strftime('%H%M')+'-'+file[0:9]+'.FIT', sorted_array)
-                #Delete .npy file
+                #Delete .pkl file
                 os.remove(target_file)
 
 def create_temp_files(folder):
@@ -43,7 +43,7 @@ def create_temp_files(folder):
     if not os.path.exists('/Volumes/SOONAR FAST/SOONAR'):
         #create SOONAR direcotry
         os.makedirs('/Volumes/SOONAR FAST/SOONAR')
-    #Iterate through .fit files in initial folder
+    #Iterate through .FIT files in initial folder
     for file in os.listdir(directory):
         target_folder = '/Volumes/SOONAR FAST/SOONAR'
         filename = os.fsdecode(file)
