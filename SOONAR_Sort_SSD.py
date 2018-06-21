@@ -97,10 +97,13 @@ def create_temp_files(folder):
             #print(date_time)
             #print(temp_name)
 
-#Iterate through ever directory on the hard drive with ending '_SOON_All' and run algorithm
+#Iterate through every directory on the SSD
 for direc in os.listdir('/Volumes/SOONAR FAST'):
+    #If it is a current SOONAR directory (ends with '_SOON_All')
     if (direc.endswith('_SOON_All')):
         print('/Volumes/SOONAR FAST'+'/'+direc)
+        #Create temporary pickle files
         create_temp_files('/Volumes/SOONAR FAST'+'/'+direc)
 print('convert .pkl to .FIT')
+#Sort pickle files and write them to .FIT
 convert_SOONAR_dir()
