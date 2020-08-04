@@ -1,0 +1,31 @@
+#!/bin/bash
+
+cd /mnt/SOON1/SOON
+
+#create foldersfor each date for the past 90 days if not already present
+x=1
+while [ $x -le 90 ]
+do
+  d=$( date +%F --date="$x days ago" )
+
+  if [ ! -f "$d"_SOON_All ];then
+    mkdir -p "$d"_SOON_All
+  fi
+
+  x=$(( $x + 1 ))
+done
+
+#move any unorganized data for the last 90 days into respective folders based on date
+x=1
+while [ $x -le 90 ]
+do
+  year=$( date +%Y --date="$x days ago" )
+  year1=$( date +%y --date="$x days ago" )
+  month=$( date +%m --date="$x days ago" )
+  day=$( date +%d --date="$x days ago" )
+
+  mv ????"$year1""$month""$day"* "$year"-"$month"-"$day"_SOON_All 2> /dev/null
+
+  x=$(( $x + 1 ))
+done
+
